@@ -1,0 +1,18 @@
+#
+# this is your module manifest and used by Titanium
+# during compilation, packaging, distribution, etc.
+#
+version: 0.1
+apiversion: 2
+description: Module to make working with PDFs in Titanium easier
+author: Benjamin Bahrenburg
+license: See attached license file
+copyright: Copyright (c) 2013 by Benjamin Bahrenburg
+
+
+# these should not be edited
+name: PDF
+moduleid: bencoding.pdf
+guid: 5ed53a4a-64a5-49b6-9ec7-6e0e1e5215c0
+platform: android
+minsdk: 3.0.0.GA
