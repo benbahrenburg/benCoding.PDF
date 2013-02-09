@@ -79,7 +79,7 @@ The benCoding.PDF module uses the below projects.  I highly encourage you to che
 
 iText ( used on Android only) 
 
-[Website](http://itextpdf.comt)
+Please visit [iText Website](http://itextpdf.com) to learn more
 
 Please note iText is licensed under the GNU Affero General Public License version 3 and depending on the nature of your app you might need a license. Please visit [license](http://itextpdf.com/terms-of-use/index.php) for details.
 
@@ -93,11 +93,13 @@ Developed by [Ben Bahrenburg](http://bahrenburgs.com) available on twitter [@ben
 <h2>Learn More</h2>
 
 <h3>Examples</h3>
-Please check the module's example folder for details. These samples are also available on github at the following:
+Please check the module's example folder for details. 
 
-[Android](https://github.com/benbahrenburg/benCoding.PDF/tree/master/Android/example) 
+These samples are also available on github at the following:
 
-[iOS](https://github.com/benbahrenburg/benCoding.PDF/tree/master/iOS/example) 
+[Android Examples](https://github.com/benbahrenburg/benCoding.PDF/tree/master/Android/example) 
+
+[iOS Examples](https://github.com/benbahrenburg/benCoding.PDF/tree/master/iOS/example) 
 
 
 <h3>Twitter</h3>
