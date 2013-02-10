@@ -17,7 +17,7 @@ public class PdfModule extends KrollModule
 {
 
 	// Standard Debugging variables
-	//private static final String LCAT = "PdfModule";
+	public static final String MODULE_FULL_NAME = "becoding.pdf";
 	
 	public PdfModule()
 	{

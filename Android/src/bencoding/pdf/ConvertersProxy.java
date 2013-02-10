@@ -24,8 +24,6 @@ import android.graphics.Bitmap;
 
 @Kroll.proxy(creatableInModule=PdfModule.class)
 public class ConvertersProxy extends KrollProxy {
-
-	private static final String LCAT = "PdfModule";
 	
 	public ConvertersProxy()
 	{
@@ -57,9 +55,9 @@ public class ConvertersProxy extends KrollProxy {
 		        
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
-				Log.i(LCAT, e.toString());
+				Log.i(PdfModule.MODULE_FULL_NAME, e.toString());
 			} catch (DocumentException e) {
-				Log.i(LCAT, e.toString());
+				Log.i(PdfModule.MODULE_FULL_NAME, e.toString());
 				e.printStackTrace();
 			}
 		finally {
