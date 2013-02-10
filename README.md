@@ -4,7 +4,7 @@ benCoding.PDF.Converters
 The benCoding.PDF Converters proxy provides conversion helper functions when working with PDFs.  At the moment the feature list is pretty small, but will be growing as needed or contributions are provided. 
 
 <h2>Before you start</h2>
-* This is an iOS module designed to work with Titanium SDK 3.0.0GA
+* This is a module designed to work with Titanium SDK 3.0.0GA
 * Before using this module you first need to install the package. If you need instructions on how to install a 3rd party module please read this installation guide.
 
 <h2>Download the release</h2>
