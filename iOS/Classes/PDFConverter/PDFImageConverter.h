@@ -8,13 +8,10 @@
 #import <Foundation/Foundation.h>
 
 
-@interface PDFImageConverter : NSObject {
+@interface PDFImageConverter : NSObject
 
-}
-
-+ (NSData *) convertImageToPDF: (UIImage *) image;
-+ (NSData *) convertImageToPDF: (UIImage *) image withResolution: (double) resolution;
-+ (NSData *) convertImageToPDF: (UIImage *) image withHorizontalResolution: (double) horzRes verticalResolution:(double) vertRes;
-+ (NSData *) convertImageToPDF: (UIImage *) image withResolution: (double) resolution maxBoundsRect: (CGRect) boundsRect pageSize: (CGSize) pageSize;
++ (NSData *)convertImageToPDF:(UIImage *)image;
++ (NSData *)convertImageToPDF:(UIImage *)image withDPI:(CGFloat)dpi;
++ (NSData *)convertImageToPDF:(UIImage *)image withDPI:(CGFloat)dpi andMaxSize:(CGSize)maxSize;
 
 @end

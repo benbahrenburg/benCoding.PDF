@@ -8,75 +8,48 @@
 #import "PDFImageConverter.h"
 
 
+static CGFloat const kDefaultDPI = 72;
+
 @implementation PDFImageConverter
 
-+ (NSData *) convertImageToPDF: (UIImage *) image {
-    return [PDFImageConverter convertImageToPDF: image withResolution: 96];
++ (NSData *)convertImageToPDF:(UIImage *)image{
+    return [PDFImageConverter convertImageToPDF:image withDPI:96];
 }
 
-+ (NSData *) convertImageToPDF: (UIImage *) image withResolution: (double) resolution {
-    return [PDFImageConverter convertImageToPDF: image withHorizontalResolution: resolution verticalResolution: resolution];
++ (NSData *)convertImageToPDF:(UIImage *)image withDPI:(CGFloat)DPI{
+    CGSize A4PageSize = CGSizeMake(8.5 * kDefaultDPI, 11 * kDefaultDPI);
+    if(image.size.width > image.size.height){
+        A4PageSize = CGSizeMake(11 * kDefaultDPI, 8.5 * kDefaultDPI);
+    }
+    return [PDFImageConverter convertImageToPDF:image withDPI:DPI andMaxSize:A4PageSize];
 }
 
-+ (NSData *) convertImageToPDF: (UIImage *) image withHorizontalResolution: (double) horzRes verticalResolution: (double) vertRes {
-    if ((horzRes <= 0) || (vertRes <= 0)) {
++ (NSData *)convertImageToPDF:(UIImage *)image withDPI:(CGFloat)DPI andMaxSize:(CGSize)maxSize{
+    if(DPI <= 0){
         return nil;
     }
-    
-    double pageWidth = image.size.width * image.scale * 72 / horzRes;
-    double pageHeight = image.size.height * image.scale * 72 / vertRes;
-    
+
+    CGFloat imageWidth = image.size.width*image.scale*kDefaultDPI/DPI;
+    CGFloat imageHeight = image.size.height*image.scale*kDefaultDPI/DPI;
+    CGFloat sx = imageWidth/maxSize.width;
+    CGFloat sy = imageHeight/maxSize.height;
+
+    if(sx > 1 || sy > 1){
+        CGFloat maxScale = sx > sy ? sx :sy;
+        imageWidth = imageWidth / maxScale;
+        imageHeight = imageHeight / maxScale;
+    }
+
+    CGRect mediaBox = (CGRect){CGPointZero, round(imageWidth), round(imageHeight)};
     NSMutableData *pdfFile = [[NSMutableData alloc] init];
-    CGDataConsumerRef pdfConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfFile);
-    // The page size matches the image, no white borders.
-    CGRect mediaBox = CGRectMake(0, 0, pageWidth, pageHeight);
+    CGDataConsumerRef pdfConsumer = CGDataConsumerCreateWithCFData((__bridge CFMutableDataRef)pdfFile);
     CGContextRef pdfContext = CGPDFContextCreate(pdfConsumer, &mediaBox, NULL);
-    
     CGContextBeginPage(pdfContext, &mediaBox);
     CGContextDrawImage(pdfContext, mediaBox, [image CGImage]);
     CGContextEndPage(pdfContext);
     CGContextRelease(pdfContext);
     CGDataConsumerRelease(pdfConsumer);
-    
-    [pdfFile autorelease];
+
     return pdfFile;
 }
-
-+ (NSData *) convertImageToPDF: (UIImage *) image withResolution: (double) resolution maxBoundsRect: (CGRect) boundsRect pageSize: (CGSize) pageSize {
-    if (resolution <= 0) {
-        return nil;
-    }
-    
-    double imageWidth = image.size.width * image.scale * 72 / resolution;
-    double imageHeight = image.size.height * image.scale * 72 / resolution;
-    
-    double sx = imageWidth / boundsRect.size.width;
-    double sy = imageHeight / boundsRect.size.height;
-    
-    // At least one image edge is larger than maxBoundsRect
-    if ((sx > 1) || (sy > 1)) {
-        double maxScale = sx > sy ? sx : sy;
-        imageWidth = imageWidth / maxScale;
-        imageHeight = imageHeight / maxScale;
-    }
-    
-    // Put the image in the top left corner of the bounding rectangle
-    CGRect imageBox = CGRectMake(boundsRect.origin.x, boundsRect.origin.y + boundsRect.size.height - imageHeight, imageWidth, imageHeight);
-    
-    NSMutableData *pdfFile = [[NSMutableData alloc] init];
-    CGDataConsumerRef pdfConsumer = CGDataConsumerCreateWithCFData((CFMutableDataRef)pdfFile);
-    
-    CGRect mediaBox = CGRectMake(0, 0, pageSize.width, pageSize.height);
-    CGContextRef pdfContext = CGPDFContextCreate(pdfConsumer, &mediaBox, NULL);
-    
-    CGContextBeginPage(pdfContext, &mediaBox);
-    CGContextDrawImage(pdfContext, imageBox, [image CGImage]);
-    CGContextEndPage(pdfContext);
-    CGContextRelease(pdfContext);
-    CGDataConsumerRelease(pdfConsumer);
-    
-    [pdfFile autorelease];
-    return pdfFile;
-}
-
 @end

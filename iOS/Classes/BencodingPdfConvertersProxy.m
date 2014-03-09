@@ -32,10 +32,9 @@
     
     CGSize pageSize = CGSizeMake(612, 792);
     CGRect imageBoundsRect = CGRectMake(50, 50, 512, 692);
-    
-    NSData *pdfData = [PDFImageConverter convertImageToPDF: image
-                                            withResolution: resolution maxBoundsRect: imageBoundsRect pageSize: pageSize];
-    
+
+    NSData *pdfData = [PDFImageConverter convertImageToPDF:image withDPI:resolution];
+
 	TiBlob *result = [[[TiBlob alloc] initWithData:pdfData mimetype:@"application/octet-stream"] autorelease];
     return result;
 }
