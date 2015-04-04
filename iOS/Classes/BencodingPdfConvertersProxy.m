@@ -35,7 +35,7 @@
 
     NSData *pdfData = [PDFImageConverter convertImageToPDF:image withDPI:resolution];
 
-	TiBlob *result = [[[TiBlob alloc] initWithData:pdfData mimetype:@"application/octet-stream"] autorelease];
+	TiBlob *result = [[TiBlob alloc] initWithData:pdfData mimetype:@"application/octet-stream"];
     return result;
 }
 
